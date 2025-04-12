@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OTP Phishing Awareness Simulator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 700px;
+      margin: 15px auto;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #007acc;
+    }
+
+    .container {
+      display: flex;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .card p {
+      font-size: 1em;
+    }
+
+    .card button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background: #005fa3;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🔐 OTP Phishing Awareness Simulator</h1>
+  <p>Welcome to a project designed to demonstrate and educate users about the dangers of <span class="highlight">OTP-based phishing scams</span>.</p>
+  <p>Explore two interactive simulations that show how scammers manipulate users into revealing sensitive information during fake calls.</p>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>🧠 Simulation Code 1</h2>
+    <p>A detailed, interactive simulation with OTP generation, transaction approval, and awareness messages. Best for workshops and deep learning.</p>
+    <button onclick="location.href='first-part.html'">Launch Code 1</button>
+  </div>
+
+  <div class="card">
+    <h2>⚡ Simulation Code 2</h2>
+    <p>A simpler version of the scam flow. Great for quick demos and visualizing the basic phishing technique in seconds.</p>
+    <button onclick="location.href='second-part.html'">Launch Code 2</button>
+  </div>
+</div>
+
+<footer>
+  <p>Crafted with 💻 by CodeWave – Raising awareness, one OTP at a time.</p>
+</footer>
+
+</body>
+</html>
