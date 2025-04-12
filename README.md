@@ -1,116 +1,86 @@
-# 📱 Detailed Plan to Address SIM Card Issuance and Fraud Prevention
+# 🔐 OTP Phishing Awareness Simulator
 
-This document presents a structured proposal to tackle major issues in SIM card distribution and financial scams related to telecom systems in India. Inspired by passport-level security, this plan envisions a future where mobile identity is as secure as your bank vault!
-
----
-
-## 🔍 Problem 1: Unregulated SIM Card Distribution
-
-### 🚨 Current Issues
-- SIM cards issued without proper verification are misused by scammers.
-- Fraudsters use vulnerable individuals (like beggars) to obtain SIMs for illegal activity.
-- Unauthorized agents bypass KYC norms.
-
-### ✅ Proposed Solution: Centralized, Regulated SIM Card Issuance (like Passport Issuance)
-
-1. **Authorized SIM Issuance Offices**
-   - Set up government-authorized agencies for SIM issuance.
-   - Include biometric (fingerprint, facial) and document validation.
-
-2. **Mandatory Multi-Layered Verification**
-   - Aadhaar + PAN + Bank Details + Police Verification.
-   - AI-based systems to detect document or identity forgery.
-
-3. **Self-Service Kiosks**
-   - Biometric + ID validation-enabled kiosks for rural & urban rollout.
-   - Work offline in low-connectivity regions.
-
-4. **Limit on SIM Cards per Person**
-   - Cap number of active SIMs (e.g., max 9 per person).
-   - Use centralized tracking to prevent duplicates.
-
-5. **Strict Regulation of PoS**
-   - All agents registered in a central database.
-   - Unauthorized sales = fines + blacklisting.
+Welcome to the **OTP Phishing Awareness Simulator**, a web-based educational tool built to **raise awareness about OTP-based social engineering scams**. Through interactive simulations, users experience both sides of a phishing attack—victim and scammer—learning how easily trust can be exploited and how to recognize the red flags.
 
 ---
 
-## 💳 Problem 2: OTP & Financial Scams
+## 🌐 Project Theme: *"Learn By Simulation"*
 
-### ⚠️ Current Issues
-- OTP scams trick users via fake rewards or threats.
-- Large transactions lack adequate verification.
-
-### ✅ Proposed Solution: Enhanced Transaction Security
-
-1. **Two-Step Authentication**
-   - ₹10,000+ transactions:
-     - 5-minute delay.
-     - Auto call/notification: “Press 1 to confirm, 2 to deny.”
-   - ₹1 Lakh+ transactions:
-     - Biometric or video call verification.
-
-2. **Customizable Transaction Limits**
-   - Users can set transaction limits via banking app or in person.
-   - Get notified for any breaches.
-
-3. **Dedicated Banking SIM Cards**
-   - SIMs solely for banking, issued by banks with strict verification.
-   - No general calls or internet usage allowed on these numbers.
+This simulator blends **cybersecurity education** with a **minimalist tech aesthetic**, giving users a calm and focused space to experience scam tactics in real time. Whether you're a student, trainer, or just curious about how scammers operate, this tool helps reinforce **digital caution through interactivity**.
 
 ---
 
-## 🔐 Problem 3: Biometric Data Misuse
+## 🎯 Features & Flow
 
-### ⚠️ Current Issues
-- Fingerprints misused by agents to issue fraudulent SIMs.
-- Victims unaware of their credentials being exploited.
-
-### ✅ Proposed Solution: Secure Biometric Handling
-
-1. **Encrypted Biometric Storage**
-   - Store securely in centralized government database with restricted access.
-
-2. **AI-Powered Fraud Detection**
-   - Flag unusual biometric patterns (e.g., too many SIMs on one print).
-
-3. **Public Awareness Campaigns**
-   - Educate citizens on biometric risks.
-   - Promote reporting through government platforms like [Chakshu](https://mobileidworld.com/india-implements-strict-sim-card-security-measures-to-combat-telecom-fraud-in-2024/).
+| Feature                   | Description                                                                 |
+|---------------------------|-----------------------------------------------------------------------------|
+| 🧠 **Simulation Code 1**     | In-depth scenario with OTP generation, approval prompts, and detailed flow. Ideal for workshops. |
+| ⚡ **Simulation Code 2**     | Quick and simple scam demonstration. Great for fast demos and classroom intros. |
+| 🧾 **Introductory Page**    | Clean home page introducing the idea, flow, and use cases of the simulations. |
+| 🧼 **End Screen**            | Closing screen reinforcing learning outcomes and key takeaways.              |
 
 ---
 
-## 🚀 Implementation Plan
+## 🧠 Educational Intent
 
-### Phase 1: Infrastructure Setup
-- Establish offices and kiosks.
-- Train staff in advanced KYC and fraud detection.
+This simulator is crafted to:
 
-### Phase 2: Policy Enforcement
-- Mandate telecom operator compliance (e.g., deadline April 2025).
-- Penalize non-compliance.
-
-### Phase 3: Public Rollout
-- Public awareness campaigns.
-- Offer incentives (e.g., free upgrade to secure banking SIMs).
+- Teach users about **OTP phishing tactics**
+- Show how **fake calls and urgency** are used to manipulate victims
+- Demonstrate the **importance of 2FA awareness**
+- Reinforce that **no legitimate service ever asks for OTP over call/chat**
 
 ---
 
-## 🌟 Benefits of This Plan
+## 🎨 UI / UX Theme
 
-- Eliminates fraudulent SIM card issuance.
-- Boosts financial transaction security.
-- Secures biometric data from exploitation.
-- Empowers users with control over mobile identity.
+| Element        | Style                                                           |
+|----------------|------------------------------------------------------------------|
+| 🎨 Colors       | Soft blue gradients (`#e0eafc` → `#cfdef3`) for calm, clean vibes |
+| 🔤 Fonts        | `Segoe UI`, modern and highly readable                          |
+| 📱 Layout       | Responsive flex layout with mobile-friendly cards               |
+| 🎮 Interaction  | App-like buttons, emojis for friendly tone, hover effects       |
+| 🧪 Mood         | Mix of awareness + engagement + interactivity                   |
 
----
-
-## 📚 References
-
-1. [Self-Service Kiosks for SIM Registration](https://www.wavetec.com/solutions/self-service-kiosks/sim-registration-verification-solution/)
-2. [India's New SIM Card Rules](https://www.indiatvnews.com/technology/news/sim-card-rules-new-regulations-prohibit-sale-by-unregistered-individuals-2025-02-23-977544)
-3. [Chakshu Initiative and Biometric Security](https://mobileidworld.com/india-implements-strict-sim-card-security-measures-to-combat-telecom-fraud-in-2024/)
+> "**A calm, interactive space where users learn how not to get scammed—by stepping into the scam.**"
 
 ---
 
-> ✨ This plan balances robust security with accessibility, ensuring digital inclusion for even the most vulnerable citizens.
+## 🔧 Technologies Used
+
+- HTML5
+- CSS3 (Flexbox, Gradients, Transitions)
+- JavaScript (State Logic, Dynamic OTPs)
+
+---
+
+## 🚀 How to Run
+
+1. Clone or download the repo
+2. Open `index.html` in your browser
+3. Click on the simulation you want to explore
+4. Follow the flow and experience both sides of the phishing scam
+5. Reflect and share to spread awareness 💡
+
+---
+
+## 🙌 Credits
+
+Crafted with 💻 by **Ajju | CodeWave Team**
+
+> *"In the war of fraud and firewalls,  
+> One code teaches, one recalls.  
+> One shows buttons, the other hearts—  
+> Choose the one that teaches smarts."*
+
+---
+
+## 📢 Disclaimer
+
+This tool is for **educational purposes only**. It does **not promote or encourage** malicious activities. Always follow ethical practices in cybersecurity and digital communication.
+
+---
+
+## 💬 Feedback or Suggestions?
+
+Drop a message, raise a pull request, or remix this to create your own digital safety tools. Stay smart. Stay safe. 🛡️
