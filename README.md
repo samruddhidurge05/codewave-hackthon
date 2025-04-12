@@ -4,7 +4,7 @@ Welcome to the **OTP Phishing Awareness Simulator**, a web-based educational too
 
 ---
 
-## 🌐 Project Theme: *"Learn By Simulation"*
+## 🌐 Project Theme: *"Learn By Simulation - Cyber Security"*
 
 This simulator blends **cybersecurity education** with a **minimalist tech aesthetic**, giving users a calm and focused space to experience scam tactics in real time. Whether you're a student, trainer, or just curious about how scammers operate, this tool helps reinforce **digital caution through interactivity**.
 
