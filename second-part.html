@@ -9,13 +9,13 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #ffdddd, #ffe6e6);
+      background: linear-gradient(to right, #d0eaff, #f0faff);
       overflow: hidden;
+      margin: 0;
     }
 
     .container {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #ffdddd, #ffe6e6);
+      background: linear-gradient(to right, #d0eaff, #f0faff);
       height: 100vh;
       margin: 0;
       display: flex;
@@ -35,7 +35,7 @@
       left: 30px;
       width: 260px;
       height: 540px;
-      background-color: #fff9f9;
+      background-color: #ffffff;
       border-radius: 25px;
       border: 3px solid #000;
       padding: 20px;
@@ -68,11 +68,11 @@
     }
 
     .otp-btn {
-      background-color: green;
+      background-color: #007acc;
     }
 
     .call-btn {
-      background-color: #4caf50;
+      background-color: #009688;
     }
 
     .end-btn {
@@ -81,12 +81,12 @@
 
     #user h1 {
       position: absolute;
-      left: 100px;
+      left: 125px;
     }
 
     #scammer h1 {
       position: absolute;
-      left: 70px;
+      left: 100px;
     }
 
     .popup {
@@ -122,37 +122,49 @@
     }
 
     .highlight-success {
-      color: green;
+      color: #007acc;
       font-weight: bold;
     }
 
     .previous button {
       position: absolute;
       left: 20px;
-      text-decoration: none;
-      background-color: #4caf50;
+      background-color: #007acc;
     }
+
     .next button {
       position: absolute;
-      top: 20px;
-      left: 75px;
-      text-decoration: none;
-      background-color: #4caf50;
+      top: 75px;
+      left: 405px;
+      background-color: #007acc;
+    }
+
+    .info-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #e0f7fa;
+      border: 2px solid #007acc;
+      padding: 20px;
+      border-radius: 10px;
+      width: 350px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 
 <body>
   <a href="first-part.html" class="previous">
-    <button>
-      Previous
-    </button>
+    <button>Previous</button>
   </a>
-  <div class="container">
 
+  <div class="container">
     <!-- USER PHONE -->
     <div class="phone" id="user">
-      <h1>👤 USER</h1>
+      <h1>USER</h1>
       <div class="screen">
         <img
           src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg">
@@ -164,11 +176,13 @@
       </div>
     </div>
 
+    <div class="information"></div>
+
     <!-- SCAMMER PHONE -->
     <div class="phone" id="scammer">
-      <h1>💀 SCAMMER</h1>
+      <h1>SCAMMER</h1>
       <div class="screen">
-        <img src="user.jpg">
+        <img src="user.jpg" />
         <h2>Victim</h2>
         <button class="call-btn" id="callToggle">Call</button>
         <button class="otp-btn" id="requestOtp" style="display:none;">Request OTP</button>
@@ -190,21 +204,28 @@
       </div>
     </div>
   </div>
-  <a href="exit.html" class="next" style="position: absolute; left: 1350px; top: 625px;">
-    <button>
-      Next
-    </button>
-  </a>
 
+  <a href="exit.html" class="next" style="position: absolute; left: 1350px; top: 625px;">
+    <button>Next</button>
+  </a>
   <script>
     $(document).ready(function () {
       let callActive = false;
       let otpGiven = false;
-
+  
       function generateOtp() {
         return Math.floor(100000 + Math.random() * 900000);
       }
-
+  
+      // Add info box if not already there
+      if (!$(".info-box").length) {
+        $("<div class='info-box'></div>").insertBefore($("#infoOverlay"));
+      }
+  
+      function updateInfo(msg, emoji = "") {
+        $(".info-box").html(`${emoji} ${msg}`);
+      }
+  
       function resetAll() {
         callActive = false;
         otpGiven = false;
@@ -212,64 +233,93 @@
         $("#wakeCall, #giveOtp, #requestOtp, #endCall").hide();
         $("#otpPopup, #moneyPopup").hide();
         $("#userVerification").hide().empty();
+        updateInfo("📴 No activity. Call ended.");
       }
-
-      // Info screen init
+  
       $("#infoOverlay").fadeIn();
-      $("#closeInfo").click(() => $("#infoOverlay").fadeOut());
-
+      $("#closeInfo").click(() => {
+        $("#infoOverlay").fadeOut();
+        updateInfo("📞 No activity yet.");
+      });
+  
       $("#callToggle").click(function () {
         if (!callActive) {
           callActive = true;
           $(this).text("End Call").addClass("end-btn");
           $("#wakeCall").show();
+          updateInfo("📞 Scammer is calling the victim...");
         } else {
           resetAll();
         }
       });
-
+  
       $("#wakeCall").click(function () {
         $(this).hide();
         $("#endCall").show();
         $("#requestOtp").show();
+        updateInfo("✅ Victim picked up the call.");
       });
-
+  
       $("#requestOtp").click(function () {
         $("#giveOtp").show();
         alert("Scammer: Please share the OTP urgently!");
+        updateInfo("⚠️ Scammer is pressuring victim to give OTP by threat or urgency.");
       });
-
+  
       $("#giveOtp").click(function () {
         if (otpGiven) return;
         otpGiven = true;
-
+  
         const otp = generateOtp();
         $("#otpPopup").text(`OTP Received: ${otp}`).fadeIn().delay(2000).fadeOut();
-
+  
+        updateInfo("🚨 Scammer received OTP. Transaction in progress... waiting for confirmation... ");
+  
         setTimeout(() => {
+          // First confirmation
           $("#userVerification").html(`
-          <p><strong>🔔 Bank Alert:</strong></p>
-          <p>Transaction of ₹50,000 initiated.</p>
-          <p>Do you recognize this?</p>
-          <button class="call-btn" id="approve">Yes</button>
-          <button class="end-btn" id="decline">No</button>
-        `).fadeIn();
-
-          $(document).on("click", "#approve", function () {
-            $("#userVerification").html(`<p style="color:green;"><strong>✅ Approved</strong> — ₹50,000 Transferred!</p>`);
-            $("#moneyPopup").fadeIn().delay(2000).fadeOut();
-          });
-
-          $(document).on("click", "#decline", function () {
-            $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
-          });
+            <p><strong>🔔 Bank Alert:</strong></p>
+            <p>Transaction of ₹50,000 initiated.</p>
+            <p>Do you recognize this?</p>
+            <button class="call-btn" id="approve1">Yes</button>
+            <button class="end-btn" id="decline1">No</button>
+          `).fadeIn();
         }, 1500);
       });
-
+  
+      // First level approval
+      $(document).on("click", "#approve1", function () {
+        $("#userVerification").html(`
+          <p><strong>⚠️ Confirmation Required</strong></p>
+          <p>You are approving ₹50,000. Are you absolutely sure?</p>
+          <button class="call-btn" id="approveFinal">Yes</button>
+          <button class="end-btn" id="declineFinal">No</button>
+        `);
+      });
+  
+      // Decline at first step
+      $(document).on("click", "#decline1", function () {
+        $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
+        updateInfo("🛑 Victim declined transaction. Scam attempt failed.");
+      });
+  
+      // Final approval
+      $(document).on("click", "#approveFinal", function () {
+        $("#userVerification").html(`<p style="color:green;"><strong>✅ Approved</strong> — ₹50,000 Transferred!</p>`);
+        $("#moneyPopup").fadeIn().delay(2000).fadeOut();
+        updateInfo("💸 Victim approved after second prompt. Money transferred.");
+      });
+  
+      // Decline at final step
+      $(document).on("click", "#declineFinal", function () {
+        $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
+        updateInfo("⚠️ Victim backed out at final step. Scam prevented.");
+      });
+  
       $("#endCall").click(() => resetAll());
     });
   </script>
-
+  
 </body>
 
 </html>
