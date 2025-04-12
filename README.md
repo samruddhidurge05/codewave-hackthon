@@ -66,7 +66,7 @@ This simulator is crafted to:
 
 ## 🙌 Credits
 
-Crafted with 💻 by **Ajju | CodeWave Team**
+Crafted with 💻 by ** | CodeWave Team |**
 
 > *"In the war of fraud and firewalls,  
 > One code teaches, one recalls.  
