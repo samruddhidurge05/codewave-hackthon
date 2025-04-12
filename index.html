@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OTP Phishing Awareness Simulator</title>
+  <style>
+    * {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 50px 20px 40px;
+    }
+
+    header {
+      text-align: center;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 0;
+      color: #007acc;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #007acc;
+    }
+
+    .container {
+      display: flex;
+      gap: 30px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .card p {
+      font-size: 1em;
+      color: #555;
+    }
+
+    .card button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1em;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 0px rgba(0, 122, 204, 0.6);
+    }
+
+    .card button:hover {
+      background: #005fa3;
+      box-shadow: 0 0 10px rgba(0, 122, 204, 0.6);
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🔐 OTP Phishing Awareness Simulator</h1>
+    <p>
+      Welcome to a cyber-security awareness experience that lets you <span class="highlight">interact with simulated scam calls</span>—the kind that prey on real people every day.
+    </p>
+    <p>
+      This project offers two simulations to help you understand how social engineering and OTP phishing scams work. Knowledge is power, and awareness is your first line of defense.
+    </p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>🧠 Simulation Code 1</h2>
+      <p>Detailed and educational: with OTP generation, realistic approval flow, and awareness overlays. Ideal for training and workshops.</p>
+      <button onclick="location.href='first-part.html'">Launch Code 1</button>
+    </div>
+
+    <div class="card">
+      <h2>⚡ Simulation Code 2</h2>
+      <p>Quick and simple demo: shows the core scam flow. Perfect for rapid understanding and short presentations.</p>
+      <button onclick="location.href='second-part.html'">Launch Code 2</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Ajju's Awareness Lab • Made with ❤️ for a safer digital world.</p>
+  </footer>
+
+</body>
+</html>
