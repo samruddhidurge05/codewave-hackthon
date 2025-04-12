@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User & Scammer Call Simulation</title>
+  <title>2FA Simulation: User vs Scammer</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
     body {
@@ -51,18 +51,23 @@
       margin: 10px 0;
     }
 
+    h1 {
+      text-align: center;
+      font-size: 20px;
+    }
+
     button {
-      margin-top: 20px;
-      padding: 12px 24px;
+      margin-top: 15px;
+      padding: 12px 20px;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       color: white;
     }
 
     .otp-btn {
-      background-color: #ff5722;
+      background-color: green;
     }
 
     .wake-call-btn {
@@ -75,10 +80,10 @@
 
     .popup {
       display: none;
-      margin-top: 30px;
+      margin-top: 20px;
       background-color: #fff;
       border: 2px solid #000;
-      padding: 15px;
+      padding: 12px;
       border-radius: 10px;
       text-align: center;
     }
@@ -95,15 +100,6 @@
       align-items: center;
       z-index: 9999;
     }
-    #user h1 {
-      position: absolute;
-      left: 75px;
-    }
-
-    #scammer h1 {
-      position: absolute;
-      left: 100px;
-    }
 
     .infoPopup {
       background: #fff;
@@ -114,24 +110,67 @@
       text-align: center;
       font-size: 16px;
     }
+
+    .highlight-success {
+      color: green;
+      font-weight: bold;
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    #userVerification p {
+      margin: 6px 0;
+    }
+
+    #approve, #decline {
+      padding: 10px 15px;
+      font-weight: bold;
+      border: none;
+      color: white;
+      border-radius: 5px;
+    }
+
+    #approve {
+      background-color: green;
+    }
+
+    #decline {
+      background-color: red;
+      margin-left: 10px;
+    }
+    .endCall{
+        background-color: #e53935 !important;
+        margin-left: 10px;
+    }
+    .req-otp{
+        background-color: green !important;
+        margin-left: 10px;
+    }
   </style>
 </head>
 <body>
+  <!-- User Phone -->
   <div class="phone" id="user">
-    <h1>USER / VICTIM</h1>
+    <h1>👤 USER</h1>
     <div class="screen">
-      <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg" alt="scammer">
-      <h2>Unknown</h2>
+      <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg  " alt="user">
+      <h2>Unknown Caller</h2>
       <button class="otp-btn" id="giveOtp">Give OTP</button>
       <button class="wake-call-btn" id="wakeCall">Wake Up Call</button>
-      <button class="wake-call-btn" id="endCall">End Call</button>
+      <button class="wake-call-btn endCall" id="endCall">End Call</button>
     </div>
   </div>
 
+  <!-- Scammer Phone -->
   <div class="phone" id="scammer">
-    <h1>SCAMMER</h1>
+    <h1>💀 SCAMMER</h1>
     <div class="screen">
-      <img src="user.jpg" alt="user">
+      <img src="user.jpg" alt="scammer">
       <h2>Victim</h2>
       <button class="otp-btn" id="requestOtp">Request OTP</button>
       <button class="wake-call-btn" id="callToggle">Call</button>
@@ -139,20 +178,20 @@
       <div class="popup" id="moneyPopup">₹50,000 Transferred Successfully</div>
     </div>
   </div>
-<!-- Info Overlay (2FA Simulation Alert) -->
-<div id="infoOverlay" class="overlay active" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+
+  <!-- Info Overlay (2FA Simulation) -->
+  <div id="infoOverlay">
     <div class="infoPopup">
-      <h3 id="infoTitle">🔐 Information</h3>
+      <h3>🔐 INFORMATION</h3>
       <p><strong>ACCESS BLOCKED: HIGH LAYER PROTECTION ENABLED</strong></p>
       <hr>
       <p><strong>Impact on Society:</strong><br>
-        Raising awareness protects users from social engineering attacks. This simulation is a tool for digital safety—it promotes <span class="highlight-success">digital literacy</span> and proactive defense.
+        This simulation spreads awareness about OTP-based social engineering attacks. By educating users, we build digital resilience and <span class="highlight-success">prevent online fraud</span>.
       </p>
-      <p class="note">🔒 This simulates a 2FA barrier. Only verified access allowed.</p>
+      <p class="note">🔒 This screen simulates a 2FA protection barrier. Unauthorized access attempts are denied.</p>
       <button id="closeInfo" class="wake-call-btn">Close</button>
     </div>
   </div>
-  
 
   <script>
     $(document).ready(function () {
@@ -210,45 +249,30 @@
       });
 
       $("#giveOtp").click(function () {
-        if (!callActive) {
-          alert("No active call!");
-          return;
-        }
-        if (!otpRequested) {
-          alert("OTP not requested yet!");
-          return;
-        }
-        if (otpGiven) {
-          alert("OTP already given.");
-          return;
-        }
+        if (!callActive || !otpRequested || otpGiven) return;
 
         otpGiven = true;
         const otp = generateOtp();
 
-        $("#otpPopup")
-          .text(`OTP Received: ${otp}`)
-          .fadeIn(300)
-          .delay(2000)
-          .fadeOut(500);
+        $("#otpPopup").text(`OTP Received: ${otp}`).fadeIn(300).delay(2000).fadeOut(500);
 
         setTimeout(function () {
           if (!$("#userVerification").length) {
             $("#user .screen").append(`
               <div class="popup" id="userVerification">
                 <p style="font-weight: bold;">🔔 Bank Alert:</p>
-                <p>A transaction of <strong>₹50,000</strong> is being initiated from your account.</p>
-                <p>If you recognize this activity and authorize the transaction, click <strong>\"Yes\"</strong>.</p>
-                <p>If not, click <strong>\"No\"</strong> to cancel it.</p>
-                <button id="approve" style="background-color: green; margin-top: 10px;">Yes</button>
-                <button id="decline" style="background-color: red; margin-left: 10px; margin-top: 10px;">No</button>
+                <p>A transaction of <strong>₹50,000</strong> is being initiated.</p>
+                <p>If you recognize this activity, click "Yes".</p>
+                <p>If not, click "No" to cancel it.</p>
+                <button id="approve">Yes</button>
+                <button id="decline">No</button>
               </div>
             `);
             $("#userVerification").fadeIn(500);
           }
 
           $(document).on("click", "#approve", function () {
-            $("#userVerification").html("<p style='color: green; font-weight: bold;'>Transaction Approved. ₹50,000 has been transferred successfully.</p>");
+            $("#userVerification").html("<p style='color: green; font-weight: bold;'>Transaction Approved. ₹50,000 has been transferred.</p>");
             $("#moneyPopup").fadeIn(300).delay(2000).fadeOut(500);
           });
 
@@ -262,6 +286,7 @@
         resetAll();
       });
 
+      // Info overlay control
       $("#infoOverlay").fadeIn(300);
       $("#closeInfo").click(function () {
         $("#infoOverlay").fadeOut(300);
