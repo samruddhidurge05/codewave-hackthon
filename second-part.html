@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2FA Scam Shield Simulation</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #ffdddd, #ffe6e6);
+    }
+.container{
+  font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffdddd, #ffe6e6);
       height: 100vh;
       margin: 0;
       display: flex;
       justify-content: space-around;
       align-items: center;
-    }
-
+}
     .phone {
       width: 340px;
       height: 680px;
@@ -45,7 +49,8 @@
       margin-bottom: 15px;
     }
 
-    h2, h1 {
+    h2,
+    h1 {
       margin: 10px 0;
     }
 
@@ -59,9 +64,18 @@
       cursor: pointer;
     }
 
-    .otp-btn { background-color: green; }
-    .call-btn { background-color: #4caf50; }
-    .end-btn { background-color: #e53935; }
+    .otp-btn {
+      background-color: green;
+    }
+
+    .call-btn {
+      background-color: #4caf50;
+    }
+
+    .end-btn {
+      background-color: #e53935;
+    }
+
     #user h1 {
       position: absolute;
       left: 100px;
@@ -84,9 +98,11 @@
 
     #infoOverlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -98,105 +114,125 @@
       padding: 30px;
       border-radius: 12px;
       width: 400px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
 
-    .highlight-success { color: green; font-weight: bold; }
+    .highlight-success {
+      color: green;
+      font-weight: bold;
+    }
+    .previous button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      
+    }
   </style>
 </head>
+
 <body>
+  <a href="index.html" class="previous">
+    <button>
+      Previous
+    </button>
+  </a>
+  <div class="container">
 
-<!-- USER PHONE -->
-<div class="phone" id="user">
-  <h1>👤 USER</h1>
-  <div class="screen">
-    <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg">
-    <h2>Unknown Caller</h2>
-    <button class="call-btn" id="wakeCall" style="display:none;">Wake Up Call</button>
-    <button class="otp-btn" id="giveOtp" style="display:none;">Give OTP</button>
-    <button class="end-btn" id="endCall" style="display:none;">End Call</button>
-    <div class="popup" id="userVerification"></div>
+    <!-- USER PHONE -->
+    <div class="phone" id="user">
+      <h1>👤 USER</h1>
+      <div class="screen">
+        <img
+          src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg">
+        <h2>Unknown Caller</h2>
+        <button class="call-btn" id="wakeCall" style="display:none;">Wake Up Call</button>
+        <button class="otp-btn" id="giveOtp" style="display:none;">Give OTP</button>
+        <button class="end-btn" id="endCall" style="display:none;">End Call</button>
+        <div class="popup" id="userVerification"></div>
+      </div>
+    </div>
+
+    <!-- SCAMMER PHONE -->
+    <div class="phone" id="scammer">
+      <h1>💀 SCAMMER</h1>
+      <div class="screen">
+        <img src="user.jpg">
+        <h2>Victim</h2>
+        <button class="call-btn" id="callToggle">Call</button>
+        <button class="otp-btn" id="requestOtp" style="display:none;">Request OTP</button>
+        <div class="popup" id="otpPopup"></div>
+        <div class="popup" id="moneyPopup">₹50,000 Transferred Successfully 💸</div>
+      </div>
+    </div>
+
+    <!-- INFO OVERLAY -->
+    <div id="infoOverlay">
+      <div class="infoPopup">
+        <h3>🔐 DIGITAL DEFENSE</h3>
+        <p><strong>Access Denied Without User Consent</strong></p>
+        <hr>
+        <p>This simulation spreads awareness on how scammers manipulate OTP-based security. Protect your digital self.
+          NEVER share OTPs.</p>
+        <p class="highlight-success">Stay Alert. Stay Secure. 🛡️</p>
+        <button class="call-btn" id="closeInfo">Enter Simulation</button>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- SCAMMER PHONE -->
-<div class="phone" id="scammer">
-  <h1>💀 SCAMMER</h1>
-  <div class="screen">
-    <img src="user.jpg">
-    <h2>Victim</h2>
-    <button class="call-btn" id="callToggle">Call</button>
-    <button class="otp-btn" id="requestOtp" style="display:none;">Request OTP</button>
-    <div class="popup" id="otpPopup"></div>
-    <div class="popup" id="moneyPopup">₹50,000 Transferred Successfully 💸</div>
-  </div>
-</div>
+  <script>
+    $(document).ready(function () {
+      let callActive = false;
+      let otpGiven = false;
 
-<!-- INFO OVERLAY -->
-<div id="infoOverlay">
-  <div class="infoPopup">
-    <h3>🔐 DIGITAL DEFENSE</h3>
-    <p><strong>Access Denied Without User Consent</strong></p>
-    <hr>
-    <p>This simulation spreads awareness on how scammers manipulate OTP-based security. Protect your digital self. NEVER share OTPs.</p>
-    <p class="highlight-success">Stay Alert. Stay Secure. 🛡️</p>
-    <button class="call-btn" id="closeInfo">Enter Simulation</button>
-  </div>
-</div>
-
-<script>
-  $(document).ready(function () {
-    let callActive = false;
-    let otpGiven = false;
-
-    function generateOtp() {
-      return Math.floor(100000 + Math.random() * 900000);
-    }
-
-    function resetAll() {
-      callActive = false;
-      otpGiven = false;
-      $("#callToggle").text("Call").removeClass("end-btn");
-      $("#wakeCall, #giveOtp, #requestOtp, #endCall").hide();
-      $("#otpPopup, #moneyPopup").hide();
-      $("#userVerification").hide().empty();
-    }
-
-    // Info screen init
-    $("#infoOverlay").fadeIn();
-    $("#closeInfo").click(() => $("#infoOverlay").fadeOut());
-
-    $("#callToggle").click(function () {
-      if (!callActive) {
-        callActive = true;
-        $(this).text("End Call").addClass("end-btn");
-        $("#wakeCall").show();
-      } else {
-        resetAll();
+      function generateOtp() {
+        return Math.floor(100000 + Math.random() * 900000);
       }
-    });
 
-    $("#wakeCall").click(function () {
-      $(this).hide();
-      $("#endCall").show();
-      $("#requestOtp").show();
-    });
+      function resetAll() {
+        callActive = false;
+        otpGiven = false;
+        $("#callToggle").text("Call").removeClass("end-btn");
+        $("#wakeCall, #giveOtp, #requestOtp, #endCall").hide();
+        $("#otpPopup, #moneyPopup").hide();
+        $("#userVerification").hide().empty();
+      }
 
-    $("#requestOtp").click(function () {
-      $("#giveOtp").show();
-      alert("Scammer: Please share the OTP urgently!");
-    });
+      // Info screen init
+      $("#infoOverlay").fadeIn();
+      $("#closeInfo").click(() => $("#infoOverlay").fadeOut());
 
-    $("#giveOtp").click(function () {
-      if (otpGiven) return;
-      otpGiven = true;
+      $("#callToggle").click(function () {
+        if (!callActive) {
+          callActive = true;
+          $(this).text("End Call").addClass("end-btn");
+          $("#wakeCall").show();
+        } else {
+          resetAll();
+        }
+      });
 
-      const otp = generateOtp();
-      $("#otpPopup").text(`OTP Received: ${otp}`).fadeIn().delay(2000).fadeOut();
+      $("#wakeCall").click(function () {
+        $(this).hide();
+        $("#endCall").show();
+        $("#requestOtp").show();
+      });
 
-      setTimeout(() => {
-        $("#userVerification").html(`
+      $("#requestOtp").click(function () {
+        $("#giveOtp").show();
+        alert("Scammer: Please share the OTP urgently!");
+      });
+
+      $("#giveOtp").click(function () {
+        if (otpGiven) return;
+        otpGiven = true;
+
+        const otp = generateOtp();
+        $("#otpPopup").text(`OTP Received: ${otp}`).fadeIn().delay(2000).fadeOut();
+
+        setTimeout(() => {
+          $("#userVerification").html(`
           <p><strong>🔔 Bank Alert:</strong></p>
           <p>Transaction of ₹50,000 initiated.</p>
           <p>Do you recognize this?</p>
@@ -204,20 +240,21 @@
           <button class="end-btn" id="decline">No</button>
         `).fadeIn();
 
-        $(document).on("click", "#approve", function () {
-          $("#userVerification").html(`<p style="color:green;"><strong>✅ Approved</strong> — ₹50,000 Transferred!</p>`);
-          $("#moneyPopup").fadeIn().delay(2000).fadeOut();
-        });
+          $(document).on("click", "#approve", function () {
+            $("#userVerification").html(`<p style="color:green;"><strong>✅ Approved</strong> — ₹50,000 Transferred!</p>`);
+            $("#moneyPopup").fadeIn().delay(2000).fadeOut();
+          });
 
-        $(document).on("click", "#decline", function () {
-          $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
-        });
-      }, 1500);
+          $(document).on("click", "#decline", function () {
+            $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
+          });
+        }, 1500);
+      });
+
+      $("#endCall").click(() => resetAll());
     });
-
-    $("#endCall").click(() => resetAll());
-  });
-</script>
+  </script>
 
 </body>
+
 </html>

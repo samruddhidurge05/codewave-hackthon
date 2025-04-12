@@ -12,6 +12,9 @@
             background-color: #d3bebe;
             margin: 0;
             padding: 0;
+        }
+
+        .container {
             height: 100vh;
             display: flex;
             justify-content: space-around;
@@ -97,40 +100,59 @@
             border-radius: 10px;
             text-align: center;
         }
+        a button{
+            background-color: #4caf50;
+        }
+        .previous {
+            position: absolute;
+            left: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <!-- User Phone -->
-    <div class="phone" id="user">
-        <h1>USER / VICTIM</h1>
-        <div class="screen">
-            <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg"
-                alt="scammer" />
-            <h2>Unknown</h2>
-            <button class="otp-btn" id="giveOtp">Give OTP</button>
-            <button class="wake-call-btn" id="wakeCall">Wake Up Call</button>
-            <button class="endcall" id="endCall" style="display: none">
-                End Call
-            </button>
-        </div>
-    </div>
+    <a href="index.html" class="previous" > 
+        <button>
+            Previous
+        </button>
+    </a>
+    <div class="container">
 
-    <!-- Scammer Phone -->
-    <div class="phone" id="scammer">
-        <h1>SCAMMER</h1>
-        <div class="screen">
-            <img src="user.jpg" alt="user" />
-            <h2>Victim</h2>
-            <button class="otp-btn" id="requestOtp">Request OTP</button>
-            <button class="wake-call-btn" id="callToggle">Call</button>
-            <div class="popup" id="otpPopup">OTP Received!</div>
-            <div class="popup" id="moneyPopup">
-                ₹50,000 Transferred Successfully
+        <!-- User Phone -->
+        <div class="phone" id="user">
+            <h1>USER / VICTIM</h1>
+            <div class="screen">
+                <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg"
+                    alt="scammer" />
+                <h2>Unknown</h2>
+                <button class="otp-btn" id="giveOtp">Give OTP</button>
+                <button class="wake-call-btn" id="wakeCall">Wake Up Call</button>
+                <button class="endcall" id="endCall" style="display: none">
+                    End Call
+                </button>
+            </div>
+        </div>
+
+        <!-- Scammer Phone -->
+        <div class="phone" id="scammer">
+            <h1>SCAMMER</h1>
+            <div class="screen">
+                <img src="user.jpg" alt="user" />
+                <h2>Victim</h2>
+                <button class="otp-btn" id="requestOtp">Request OTP</button>
+                <button class="wake-call-btn" id="callToggle">Call</button>
+                <div class="popup" id="otpPopup">OTP Received!</div>
+                <div class="popup" id="moneyPopup">
+                    ₹50,000 Transferred Successfully
+                </div>
             </div>
         </div>
     </div>
-
+    <a href="second-part.html" class="next" style="position: absolute; left: 1350px; top: 625px;"> 
+        <button>
+            View Solution
+        </button>
+    </a>
     <script>
         $(document).ready(function () {
             let callActive = false;
