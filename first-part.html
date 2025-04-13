@@ -9,7 +9,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #e0eafc, #cfdef3); /* Soft gradient background */
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            /* Soft gradient background */
             margin: 0;
             padding: 0;
         }
@@ -33,14 +34,16 @@
             left: 35px;
             width: 250px;
             height: 535px;
-            background-color: #fff; /* White background for the phone screen */
+            background-color: #fff;
+            /* White background for the phone screen */
             border-radius: 25px;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 4px solid #007acc; /* Blue border to match theme */
+            border: 4px solid #007acc;
+            /* Blue border to match theme */
         }
 
         img {
@@ -53,7 +56,8 @@
         h2 {
             font-size: 22px;
             margin: 10px 0;
-            color: #333; /* Dark gray text color */
+            color: #333;
+            /* Dark gray text color */
         }
 
         button {
@@ -67,23 +71,29 @@
         }
 
         .otp-btn {
-            background-color: #007acc; /* Blue button color */
+            background-color: #007acc;
+            /* Blue button color */
         }
 
         .wake-call-btn {
-            background-color: #007acc; /* Blue button color */
+            background-color: #007acc;
+            /* Blue button color */
         }
 
         .call-ended {
-            background-color: #e53935 !important; /* Red color when call is ended */
+            background-color: #e53935 !important;
+            /* Red color when call is ended */
         }
 
         .endcall {
-            background-color: #e53935; /* Red color for the end call button */
+            background-color: #e53935;
+            /* Red color for the end call button */
         }
 
-        #user h1, #scammer h1 {
-            color: #007acc; /* Blue for headings */
+        #user h1,
+        #scammer h1 {
+            color: #007acc;
+            /* Blue for headings */
             position: absolute;
             left: 75px;
         }
@@ -92,33 +102,35 @@
             display: none;
             margin-top: 30px;
             background-color: #fff;
-            border: 2px solid #007acc; /* Blue border for popups */
+            border: 2px solid #007acc;
+            /* Blue border for popups */
             padding: 15px;
             border-radius: 10px;
             text-align: center;
         }
 
         a button {
-            background-color: #007acc; /* Blue button for links */
+            background-color: #007acc;
+            /* Blue button for links */
         }
 
-        .previous{
+        .previous {
             position: absolute;
             left: 20px;
             left: 20px;
         }
-        
+
         .next {
             position: absolute;
             top: 700px;
         }
 
-
         .information {
             width: 300px;
             min-height: 200px;
             background-color: #fff;
-            border: 3px solid #007acc; /* Blue border for the info box */
+            border: 3px solid #007acc;
+            /* Blue border for the info box */
             border-radius: 15px;
             padding: 20px;
             font-size: 18px;
@@ -130,7 +142,7 @@
 </head>
 
 <body>
-    <a href="index.html" class="previous">
+    <a href="intro.html" class="previous">
         <button>
             Previous
         </button>
@@ -175,87 +187,87 @@
         </button>
     </a>
     <script>
-    $(document).ready(function () {
-        let callActive = false;
+        $(document).ready(function () {
+            let callActive = false;
 
-        // Initially hide everything
-        $("#wakeCall").hide();
-        $("#giveOtp").hide();
-        $("#requestOtp").hide();
-        $("#endCall").hide();
-        $(".information").html("📞 No activity yet.");
+            // Initially hide everything
+            $("#wakeCall").hide();
+            $("#giveOtp").hide();
+            $("#requestOtp").hide();
+            $("#endCall").hide();
+            $(".information").html("📞 No activity yet.");
 
-        // STEP 1: Scammer clicks "Call"
-        $("#callToggle").click(function () {
-            if (!callActive) {
-                callActive = true;
+            // STEP 1: Scammer clicks "Call"
+            $("#callToggle").click(function () {
+                if (!callActive) {
+                    callActive = true;
 
-                // Update buttons
-                $("#callToggle").text("Call Ended").addClass("call-ended");
-                $("#wakeCall").show().text("Wake Up Call").removeClass("call-ended");
+                    // Update buttons
+                    $("#callToggle").text("Call Ended").addClass("call-ended");
+                    $("#wakeCall").show().text("Wake Up Call").removeClass("call-ended");
 
-                // Update info section
+                    // Update info section
+                    $(".information").html(
+                        `<b>📞 Calling...</b><br>Scammer is trying to call the victim.`
+                    );
+                } else {
+                    resetAll();
+                }
+            });
+
+            // STEP 2: User clicks "Wake Up Call"
+            $("#wakeCall").click(function () {
+                $("#wakeCall").hide();
+                $("#endCall").show(); // Show "End Call" button
+                $("#requestOtp").show(); // Scammer can now request OTP
+
                 $(".information").html(
-                    `<b>📞 Calling...</b><br>Scammer is trying to call the victim.`
+                    `<b>✅ Call Picked Up</b><br>Victim has picked up the call.`
                 );
-            } else {
+            });
+
+            // STEP 3: Scammer clicks "Request OTP"
+            $("#requestOtp").click(function () {
+                $("#requestOtp").hide();
+                $("#giveOtp").show();
+                alert("Scammer requests OTP.");
+
+                $(".information").html(
+                    `<b>⚠️ OTP Request</b><br>Scammer is trying to get the OTP by force, threat, or blackmail.`
+                );
+            });
+
+            // STEP 4: User gives OTP
+            $("#giveOtp").click(function () {
+                $("#otpPopup").fadeIn(300).delay(2000).fadeOut(500);
+                $("#moneyPopup").delay(2300).fadeIn(400).delay(2000).fadeOut(500);
+
+                $(".information").html(
+                    `<b>🚨 Fraud in Progress</b><br>Scammer has received the OTP and is transferring money.`
+                );
+            });
+
+            // STEP 5: User ends call
+            $("#endCall").click(function () {
                 resetAll();
+            });
+
+            // 🔁 RESET FUNCTION
+            function resetAll() {
+                callActive = false;
+
+                // Reset scammer side
+                $("#callToggle").text("Call").removeClass("call-ended");
+                $("#requestOtp").hide();
+
+                // Reset user side
+                $("#wakeCall").hide().removeClass("call-ended").text("Wake Up Call");
+                $("#giveOtp").hide();
+                $("#endCall").hide();
+
+                $(".information").html("📴 No activity. Call has ended.");
             }
         });
-
-        // STEP 2: User clicks "Wake Up Call"
-        $("#wakeCall").click(function () {
-            $("#wakeCall").hide();
-            $("#endCall").show(); // Show "End Call" button
-            $("#requestOtp").show(); // Scammer can now request OTP
-
-            $(".information").html(
-                `<b>✅ Call Picked Up</b><br>Victim has picked up the call.`
-            );
-        });
-
-        // STEP 3: Scammer clicks "Request OTP"
-        $("#requestOtp").click(function () {
-            $("#requestOtp").hide();
-            $("#giveOtp").show();
-            alert("Scammer requests OTP.");
-
-            $(".information").html(
-                `<b>⚠️ OTP Request</b><br>Scammer is trying to get the OTP by force, threat, or blackmail.`
-            );
-        });
-
-        // STEP 4: User gives OTP
-        $("#giveOtp").click(function () {
-            $("#otpPopup").fadeIn(300).delay(2000).fadeOut(500);
-            $("#moneyPopup").delay(2300).fadeIn(400).delay(2000).fadeOut(500);
-
-            $(".information").html(
-                `<b>🚨 Fraud in Progress</b><br>Scammer has received the OTP and is transferring money.`
-            );
-        });
-
-        // STEP 5: User ends call
-        $("#endCall").click(function () {
-            resetAll();
-        });
-
-        // 🔁 RESET FUNCTION
-        function resetAll() {
-            callActive = false;
-
-            // Reset scammer side
-            $("#callToggle").text("Call").removeClass("call-ended");
-            $("#requestOtp").hide();
-
-            // Reset user side
-            $("#wakeCall").hide().removeClass("call-ended").text("Wake Up Call");
-            $("#giveOtp").hide();
-            $("#endCall").hide();
-
-            $(".information").html("📴 No activity. Call has ended.");
-        }
-    });
     </script>
 
 </body>

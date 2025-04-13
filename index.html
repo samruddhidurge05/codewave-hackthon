@@ -1,141 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OTP Phishing Awareness Simulator</title>
-  <style>
-    * {
-      scroll-behavior: smooth;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e0eafc, #cfdef3);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 50px 20px 40px;
-    }
+        body {
+            background-color: #0f1a2c;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+        }
 
-    header {
-      text-align: center;
-      max-width: 900px;
-    }
+        nav.title {
+            background-color: aquamarine;
+            padding: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            font-size: 28px;
+        }
 
-    h1 {
-      font-size: 3em;
-      margin: 0;
-      color: #007acc;
-    }
+        nav.title a {
+            color: #161718;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px 25px;
+            transition: background-color 0.3s;
+        }
 
-    p {
-      font-size: 1.2em;
-      margin-top: 15px;
-      line-height: 1.6;
-    }
+        nav.title a:hover {
+            background-color: #c1f0e4;
+            border-radius: 5px;
+        }
 
-    .highlight {
-      font-weight: bold;
-      color: #007acc;
-    }
+        .intro-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 80px;
+            gap: 50px;
+        }
 
-    .container {
-      display: flex;
-      gap: 30px;
-      margin-top: 50px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+        .intro-text {
+            flex: 1;
+            font-size: 22px;
+            line-height: 1.8;
+            background-color: #1e2f45;
+            padding: 40px;
+            border-left: 6px solid aquamarine;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
 
-    .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      width: 300px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        .intro-text h2 {
+            font-size: 38px;
+            color: aquamarine;
+            margin-bottom: 20px;
+        }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
+        .intro-image {
+            flex: 1;
+        }
 
-    .card h2 {
-      margin-top: 0;
-      color: #333;
-    }
+        .intro-image img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
 
-    .card p {
-      font-size: 1em;
-      color: #555;
-    }
+        .square-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 60px 0;
+            padding: 0 60px;
+        }
 
-    .card button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1em;
-      background: #007acc;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 0px rgba(0, 122, 204, 0.6);
-    }
+        .card-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 500px;
+        }
 
-    .card button:hover {
-      background: #005fa3;
-      box-shadow: 0 0 10px rgba(0, 122, 204, 0.6);
-    }
+        .square-card {
+            background-color: #1e2f45;
+            width: 500px;
+            height: 500px;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 3px solid aquamarine;
+            position: relative;
+        }
 
-    footer {
-      margin-top: 60px;
-      font-size: 0.9em;
-      color: #666;
-      text-align: center;
-    }
+        .square-card:hover {
+            transform: scale(1.05);
+            background-color: #263f5f;
+        }
 
-    footer p {
-      margin: 0;
-    }
-  </style>
+        .square-card.demo,
+        .square-card.bank,
+        .square-card.sim {
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .square-card.sim {
+            background-size: cover ;
+
+        }
+        .square-card.demo {
+            background-image: url('demo.png');
+        }
+
+        .square-card.bank {
+            background-image: url('banking-form.png');
+        }
+
+        .square-card.sim {
+            background-image: url('sim.png');
+        }
+
+        .card-label {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+        }
+
+        .hidden-section {
+            display: none;
+            background-color: #1e2f45;
+            margin: 40px auto;
+            padding: 35px;
+            border-left: 6px solid aquamarine;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 1000px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+            font-size: 20px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: aquamarine;
+            border: none;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #a2e3ce;
+        }
+
+        #confirmationMessage {
+            display: none;
+            margin-top: 20px;
+            color: lightgreen;
+        }
+
+        @media screen and (max-width: 900px) {
+            .intro-section {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+
+            .intro-image img {
+                max-width: 100%;
+            }
+
+            .square-card {
+                width: 100%;
+                height: 300px;
+            }
+
+            .card-wrapper {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <nav class="title">
+        <a href="index.html">HOME</a>
+        <a href="aboutus.html">ABOUT US</a>
+        <a href="aboutproject.html">ABOUT PROJECT</a>
+    </nav>
 
-  <header>
-    <h1>🔐 OTP Phishing Awareness Simulator</h1>
-    <p>
-      Welcome to a cyber-security awareness experience that lets you <span class="highlight">interact with simulated scam calls</span>—the kind that prey on real people every day.
-    </p>
-    <p>
-      This project offers two simulations to help you understand how social engineering and OTP phishing scams work. Knowledge is power, and awareness is your first line of defense.
-    </p>
-  </header>
-
-  <div class="container">
-    <div class="card">
-      <h2>🧠 Real World Problem </h2>
-      <p>Detailed and educational: with OTP generation, realistic approval flow, and awareness overlays. Ideal for training and workshops.</p>
-      <button onclick="location.href='first-part.html'">Launch Code 1</button>
+    <div class="intro-section">
+        <div class="intro-text">
+            <h2>INTRODUCTION</h2>
+            <p>In today's digital era, cyberattacks are no longer limited to hacking systems — they're targeting humans...</p>
+        </div>
+        <div class="intro-image">
+            <img src="home.png" alt="Cyber Awareness" />
+        </div>
     </div>
 
-    <div class="card">
-      <h2>⚡ Solution for Problem</h2>
-      <p>Quick and simple demo: shows the core scam flow. Perfect for rapid understanding and short presentations.</p>
-      <button onclick="location.href='second-part.html'">Launch Code 2</button>
+    <div class="square-container">
+        <div class="card-wrapper">
+            <div class="square-card sim" onclick="window.location.href='phone-verify.html'"></div>
+            <div class="card-label">SIM VERIFICATION FORM</div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="square-card bank" onclick="toggleSection('bankForm')"></div>
+            <div class="card-label">BANKING SIM FORM</div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="square-card demo" onclick="window.location.href='intro.html'"></div>
+            <div class="card-label">DEMONSTRATIONS</div>
+        </div>
     </div>
-  </div>
 
-  <footer>
-    <p>© 2025 CodeWave's Awareness Lab • Made with ❤️ for a safer digital world.</p>
-  </footer>
+    <div id="bankForm" class="hidden-section">
+        <div class="form-container">
+            <h2>Banking SIM Card Form</h2>
+            <form id="bankSimForm" enctype="multipart/form-data">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required />
 
+                <label for="aadhaar">Aadhaar Number:</label>
+                <input type="text" id="aadhaar" name="aadhaar" pattern="\d{12}" title="12-digit Aadhaar number" required />
+
+                <label for="pan">PAN Card Number:</label>
+                <input type="text" id="pan" name="pan" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Valid PAN format: ABCDE1234F" required />
+
+                <label for="mobileNo">Current Mobile No.:</label>
+                <input type="text" id="mobileNo" name="mobileNo" pattern="\d{10}" required />
+
+                <label for="biometric">Upload Biometric Data:</label>
+                <input type="file" id="biometric" name="biometric" required />
+
+                <label for="photo">Upload Passport-Size Photo:</label>
+                <input type="file" id="photo" name="photo" required />
+
+                <button type="submit">Submit Verification</button>
+            </form>
+            <p id="confirmationMessage">✅ Your verification form has been submitted!</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            const sections = ['simFormSection', 'bankForm', 'demoSection'];
+            sections.forEach(sec => {
+                const el = document.getElementById(sec);
+                if (el) el.style.display = sec === id ? 'block' : 'none';
+            });
+        }
+
+        document.getElementById("bankSimForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            document.getElementById("confirmationMessage").style.display = "block";
+        });
+    </script>
 </body>
+
 </html>
