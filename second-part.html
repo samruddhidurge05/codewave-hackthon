@@ -7,6 +7,7 @@
   <title>2FA Scam Shield Simulation</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
+    /* --- Your original styling, untouched and fabulous --- */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #d0eaff, #f0faff);
@@ -162,7 +163,6 @@
   </a>
 
   <div class="container">
-    <!-- USER PHONE -->
     <div class="phone" id="user">
       <h1>USER</h1>
       <div class="screen">
@@ -178,7 +178,6 @@
 
     <div class="information"></div>
 
-    <!-- SCAMMER PHONE -->
     <div class="phone" id="scammer">
       <h1>SCAMMER</h1>
       <div class="screen">
@@ -191,7 +190,6 @@
       </div>
     </div>
 
-    <!-- INFO OVERLAY -->
     <div id="infoOverlay">
       <div class="infoPopup">
         <h3>🔐 DIGITAL DEFENSE</h3>
@@ -199,7 +197,7 @@
         <hr>
         <p>This simulation spreads awareness on how scammers manipulate OTP-based security. Protect your digital self.
           NEVER share OTPs.</p>
-        <p class="highlight-success">Stay Alert. Stay Secure. 🛡️</p>
+        <p class="highlight-success">Stay Alert. Stay Secure. 🛡</p>
         <button class="call-btn" id="closeInfo">Enter Simulation</button>
       </div>
     </div>
@@ -213,17 +211,22 @@
       let callActive = false;
       let otpGiven = false;
 
-      function generateOtp() {
-        return Math.floor(100000 + Math.random() * 900000);
-      }
+      const soundCall = new Audio("https://www.fesliyanstudios.com/play-mp3/4386");
+      const soundAlert = new Audio("https://www.fesliyanstudios.com/play-mp3/6963");
+      const soundTransfer = new Audio("https://www.fesliyanstudios.com/play-mp3/6710");
 
-      // Add info box if not already there
+      const scammerVoice = new Audio("scammer call.wav"); // Replace with actual MP3 link
+
       if (!$(".info-box").length) {
         $("<div class='info-box'></div>").insertBefore($("#infoOverlay"));
       }
 
       function updateInfo(msg, emoji = "") {
         $(".info-box").html(`${emoji} ${msg}`);
+      }
+
+      function generateOtp() {
+        return 223311;
       }
 
       function resetAll() {
@@ -234,6 +237,13 @@
         $("#otpPopup, #moneyPopup").hide();
         $("#userVerification").hide().empty();
         updateInfo("📴 No activity. Call ended.");
+        $("#user .screen").removeClass("shake glow");
+
+        // Stop all sounds
+        soundCall.pause();
+        soundCall.currentTime = 0;
+        scammerVoice.pause();
+        scammerVoice.currentTime = 0;
       }
 
       $("#infoOverlay").fadeIn();
@@ -247,7 +257,9 @@
           callActive = true;
           $(this).text("End Call").addClass("end-btn");
           $("#wakeCall").show();
-          updateInfo("📞 Scammer is calling the victim...");
+          updateInfo("📞 Scammer places a call to the victim...");
+          soundCall.play();
+          $("#user .screen").addClass("shake glow");
         } else {
           resetAll();
         }
@@ -257,26 +269,41 @@
         $(this).hide();
         $("#endCall").show();
         $("#requestOtp").show();
-        updateInfo("✅ Victim picked up the call.");
+        $("#user .screen").removeClass("shake");
+        updateInfo("✅ Victim answers and engages with the caller.");
+
+        // Stop the ringtone when call is answered
+        soundCall.pause();
+        soundCall.currentTime = 0;
+
+        // Play scammer voice
+        scammerVoice.currentTime = 0;
+        scammerVoice.play();
       });
 
       $("#requestOtp").click(function () {
         $("#giveOtp").show();
-        alert("Scammer: Please share the OTP urgently!");
-        updateInfo("⚠️ Scammer is pressuring victim to give OTP by threat or urgency.");
+        scammerMessage("⛔ Urgent! Share OTP or your account will be locked.");
+        soundAlert.play();
+        typeEffect($(".info-box"), "⚠ Scammer uses threats to manipulate the victim...");
       });
 
       $("#giveOtp").click(function () {
         if (otpGiven) return;
         otpGiven = true;
+        let otp = generateOtp();
+        let countdown = 5;
+        const otpPopup = $("#otpPopup");
+        const interval = setInterval(() => {
+          otpPopup.html(`OTP Received: <strong>${otp}</strong> <br><small>Auto-verify in ${countdown--}s</small>`).fadeIn();
+          if (countdown < 0) {
+            clearInterval(interval);
+            otpPopup.fadeOut();
+          }
+        }, 1000);
 
-        const otp = generateOtp();
-        $("#otpPopup").text(`OTP Received: ${otp}`).fadeIn().delay(2000).fadeOut();
-
-        updateInfo("🚨 Scammer received OTP. Transaction in progress... waiting for confirmation... ");
-
+        updateInfo("🚨 Scammer received OTP. Transaction in progress... The system awaits final confirmation from the victim.");
         setTimeout(() => {
-          // First confirmation
           $("#userVerification").html(`
             <p><strong>🔔 Bank Alert:</strong></p>
             <p>Transaction of ₹50,000 initiated.</p>
@@ -284,42 +311,89 @@
             <button class="call-btn" id="approve1">Yes</button>
             <button class="end-btn" id="decline1">No</button>
           `).fadeIn();
-        }, 1500);
+        }, 3000);
       });
 
-      // First level approval
       $(document).on("click", "#approve1", function () {
         $("#userVerification").html(`
-          <p><strong>⚠️ Confirmation Required</strong></p>
+          <p><strong>⚠ Confirmation Required</strong></p>
           <p>You are approving ₹50,000. Are you absolutely sure?</p>
           <button class="call-btn" id="approveFinal">Yes</button>
           <button class="end-btn" id="declineFinal">No</button>
         `);
       });
 
-      // Decline at first step
       $(document).on("click", "#decline1", function () {
         $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
-        updateInfo("🛑 Victim declined transaction. Scam attempt failed.");
+        updateInfo("🛑 Victim declined transaction request. Scam attempt unsuccessful.");
       });
 
-      // Final approval
       $(document).on("click", "#approveFinal", function () {
         $("#userVerification").html(`<p style="color:green;"><strong>✅ Approved</strong> — ₹50,000 Transferred!</p>`);
         $("#moneyPopup").fadeIn().delay(2000).fadeOut();
-        updateInfo("💸 Victim approved after second prompt. Money transferred.");
+        updateInfo("💸 Victim approves the transaction. Funds successfully transferred.");
+        soundTransfer.play();
       });
 
-      // Decline at final step
       $(document).on("click", "#declineFinal", function () {
         $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
-        updateInfo("⚠️ Victim backed out at final step. Scam prevented.");
+        updateInfo("⚠ At final step, victim cancels transaction. Scam prevented.");
       });
 
       $("#endCall").click(() => resetAll());
+
+      function scammerMessage(msg) {
+        const msgBox = $("<div class='message-bubble'></div>").text(msg);
+        $("#scammer .screen").append(msgBox);
+        setTimeout(() => msgBox.fadeOut(500, () => msgBox.remove()), 4000);
+      }
+
+      function typeEffect(el, text, speed = 30) {
+        let i = 0;
+        el.html("");
+        (function typing() {
+          if (i < text.length) {
+            el.append(text.charAt(i++));
+            setTimeout(typing, speed);
+          }
+        })();
+      }
+
+      $("<style>").text(`
+        @keyframes shake {
+          0% { transform: translate(1px, 1px) rotate(0deg); }
+          25% { transform: translate(-1px, 2px) rotate(-1deg); }
+          50% { transform: translate(-3px, 0px) rotate(1deg); }
+          75% { transform: translate(3px, 2px) rotate(0deg); }
+          100% { transform: translate(1px, -1px) rotate(1deg); }
+        }
+        .shake { animation: shake 0.3s infinite; }
+        .glow { box-shadow: 0 0 12px #007acc, 0 0 20px #00bcd4; }
+        .message-bubble {
+          background: #fff3cd;
+          color: #856404;
+          border-left: 4px solid #ff9800;
+          padding: 8px 12px;
+          margin-top: 10px;
+          border-radius: 6px;
+          font-size: 13px;
+          animation: fadein 0.6s ease;
+        }
+        @keyframes fadein {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `).appendTo("head");
+
+      $("button").hover(
+        function () {
+          $(this).css({ transform: "scale(1.05)", transition: "0.2s" });
+        },
+        function () {
+          $(this).css("transform", "scale(1)");
+        }
+      );
     });
   </script>
 
 </body>
-
-</html>
