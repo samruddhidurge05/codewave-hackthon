@@ -212,20 +212,20 @@
     $(document).ready(function () {
       let callActive = false;
       let otpGiven = false;
-  
+
       function generateOtp() {
         return Math.floor(100000 + Math.random() * 900000);
       }
-  
+
       // Add info box if not already there
       if (!$(".info-box").length) {
         $("<div class='info-box'></div>").insertBefore($("#infoOverlay"));
       }
-  
+
       function updateInfo(msg, emoji = "") {
         $(".info-box").html(`${emoji} ${msg}`);
       }
-  
+
       function resetAll() {
         callActive = false;
         otpGiven = false;
@@ -235,13 +235,13 @@
         $("#userVerification").hide().empty();
         updateInfo("📴 No activity. Call ended.");
       }
-  
+
       $("#infoOverlay").fadeIn();
       $("#closeInfo").click(() => {
         $("#infoOverlay").fadeOut();
         updateInfo("📞 No activity yet.");
       });
-  
+
       $("#callToggle").click(function () {
         if (!callActive) {
           callActive = true;
@@ -252,29 +252,29 @@
           resetAll();
         }
       });
-  
+
       $("#wakeCall").click(function () {
         $(this).hide();
         $("#endCall").show();
         $("#requestOtp").show();
         updateInfo("✅ Victim picked up the call.");
       });
-  
+
       $("#requestOtp").click(function () {
         $("#giveOtp").show();
         alert("Scammer: Please share the OTP urgently!");
         updateInfo("⚠️ Scammer is pressuring victim to give OTP by threat or urgency.");
       });
-  
+
       $("#giveOtp").click(function () {
         if (otpGiven) return;
         otpGiven = true;
-  
+
         const otp = generateOtp();
         $("#otpPopup").text(`OTP Received: ${otp}`).fadeIn().delay(2000).fadeOut();
-  
+
         updateInfo("🚨 Scammer received OTP. Transaction in progress... waiting for confirmation... ");
-  
+
         setTimeout(() => {
           // First confirmation
           $("#userVerification").html(`
@@ -286,7 +286,7 @@
           `).fadeIn();
         }, 1500);
       });
-  
+
       // First level approval
       $(document).on("click", "#approve1", function () {
         $("#userVerification").html(`
@@ -296,30 +296,30 @@
           <button class="end-btn" id="declineFinal">No</button>
         `);
       });
-  
+
       // Decline at first step
       $(document).on("click", "#decline1", function () {
         $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
         updateInfo("🛑 Victim declined transaction. Scam attempt failed.");
       });
-  
+
       // Final approval
       $(document).on("click", "#approveFinal", function () {
         $("#userVerification").html(`<p style="color:green;"><strong>✅ Approved</strong> — ₹50,000 Transferred!</p>`);
         $("#moneyPopup").fadeIn().delay(2000).fadeOut();
         updateInfo("💸 Victim approved after second prompt. Money transferred.");
       });
-  
+
       // Decline at final step
       $(document).on("click", "#declineFinal", function () {
         $("#userVerification").html(`<p style="color:red;"><strong>❌ Transaction Cancelled</strong></p>`);
         updateInfo("⚠️ Victim backed out at final step. Scam prevented.");
       });
-  
+
       $("#endCall").click(() => resetAll());
     });
   </script>
-  
+
 </body>
 
 </html>
