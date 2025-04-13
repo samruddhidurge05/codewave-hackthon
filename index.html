@@ -21,21 +21,14 @@
 
         nav.title {
             background-color: aquamarine;
-            padding: 25px 0;
+            padding: 15px 0;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             gap: 60px;
             font-size: 26px;
         }
 
-        nav.title a {
-            color: #161718;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 14px 30px;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
+
 
         nav.title a:hover {
             background-color: #b8f1df;
@@ -212,7 +205,7 @@
                 width: 100%;
             }
         }
-        
+
         footer a {
             color: #007acc;
             text-decoration: none;
@@ -222,6 +215,7 @@
             text-decoration: underline;
             color: #005fa3;
         }
+
         footer {
             background-color: #1e2f45;
             color: #ccc;
@@ -230,15 +224,52 @@
             font-size: 16px;
             border-top: 1px solid #2c3e50;
         }
-    
+
+        .links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .links a {
+            color: #161718;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .links a:hover {
+            background-color: #b8f1df;
+            transform: scale(1.05);
+        }
+
+        .image {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .image img {
+            width: 90%;
+            /* height: 100%; */
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
     </style>
 </head>
 
 <body>
     <nav class="title">
-        <a href="index.html">HOME</a>
-        <a href="aboutus.html">ABOUT US</a>
-        <a href="aboutproject.html">ABOUT PROJECT</a>
+        <div class="image">
+            <img src="resources/logo.jpg" alt="">
+        </div>
+        <div class="links">
+            <a href="index.html">HOME</a>
+            <a href="aboutus.html">ABOUT US</a>
+            <a href="aboutproject.html">ABOUT PROJECT</a>
+        </div>
     </nav>
 
     <div class="intro-section">
@@ -261,7 +292,7 @@
             <img src="resources/help.png" alt="Cybersecurity Awareness Graphic" />
 
 
-            
+
         </div>
         <div class="intro-image">
             <img src="resources/image.jpg" alt="Cyber Awareness" />
@@ -316,9 +347,10 @@
         </div>
     </div>
     <footer>
-        &copy; 2025 CodeWave Team | Built with enthusiastics 
+        &copy; 2025 CodeWave Team | Built with enthusiastics
         <a href="mailto:ajinkyafurange58@gmail.com">Contact Us</a>
-    </footer>
+            
+    </footer>
     <script>
         function toggleSection(id) {
             const sections = ['simFormSection', 'bankForm', 'demoSection'];
