@@ -11,6 +11,31 @@
             margin: 40px;
             background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
             color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav.title {
+            background-color: aquamarine;
+            padding: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            font-size: 26px;
+        }
+
+        nav.title a {
+            color: #161718;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        nav.title a:hover {
+            background-color: #b8f1df;
+            transform: scale(1.05);
         }
 
         h1,
@@ -89,6 +114,11 @@
 </head>
 
 <body>
+    <nav class="title">
+        <a href="index.html">HOME</a>
+        <a href="aboutus.html">ABOUT US</a>
+        <a href="aboutproject.html">ABOUT PROJECT</a>
+    </nav>
 
     <header>
         <h1>About This Project</h1>

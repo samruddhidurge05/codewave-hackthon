@@ -6,31 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us</title>
     <style>
+               html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #0f1a2c;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
         }
 
-        nav {
+        nav.title {
             background-color: aquamarine;
-            padding: 50px;
-            text-align: center;
+            padding: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            font-size: 26px;
         }
 
-        nav a {
+        nav.title a {
+            color: #161718;
             text-decoration: none;
             font-weight: bold;
-            color: #161718;
-            font-size: 22px;
-            margin: 0 25px;
-            transition: color 0.3s ease;
+            padding: 14px 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
-        nav a:hover {
-            color: #005f5f;
+        nav.title a:hover {
+            background-color: #b8f1df;
+            transform: scale(1.05);
         }
 
         .card {
@@ -94,10 +101,10 @@
 </head>
 
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="aboutus.html">About us</a>
-        <a href="aboutproject.html">About Project</a>
+    <nav class="title">
+        <a href="index.html">HOME</a>
+        <a href="aboutus.html">ABOUT US</a>
+        <a href="aboutproject.html">ABOUT PROJECT</a>
     </nav>
 
     <div class="card">
