@@ -11,7 +11,7 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #d0eaff, #f0faff);
-      overflow: hidden;
+      /* overflow:   hidden; */
       margin: 0;
     }
 
@@ -181,7 +181,7 @@
     <div class="phone" id="scammer">
       <h1>SCAMMER</h1>
       <div class="screen">
-        <img src="user.jpg" />
+        <img src="resources/user.jpg" />
         <h2>Victim</h2>
         <button class="call-btn" id="callToggle">Call</button>
         <button class="otp-btn" id="requestOtp" style="display:none;">Request OTP</button>
@@ -203,9 +203,12 @@
     </div>
   </div>
 
-  <a href="exit.html" class="next" style="position: absolute; left: 1350px; top: 625px;">
-    <button>Next</button>
-  </a>
+  <a href="exit.html" class="next" style="position: absolute; left: 1200px; top: 730px;">
+    <button>
+        View Solution
+    </button>
+</a>
+
   <script>
     $(document).ready(function () {
       let callActive = false;
@@ -215,7 +218,7 @@
       const soundAlert = new Audio("https://www.fesliyanstudios.com/play-mp3/6963");
       const soundTransfer = new Audio("https://www.fesliyanstudios.com/play-mp3/6710");
 
-      const scammerVoice = new Audio("scammer call.wav"); // Replace with actual MP3 link
+      const scammerVoice = new Audio("resources/scammer call.wav"); // Replace with actual MP3 link
 
       if (!$(".info-box").length) {
         $("<div class='info-box'></div>").insertBefore($("#infoOverlay"));
