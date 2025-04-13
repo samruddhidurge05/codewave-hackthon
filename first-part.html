@@ -4,272 +4,320 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User & Scammer Call Simulation</title>
+    <title>2FA Scam Shield Simulation</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #e0eafc, #cfdef3);
-            /* Soft gradient background */
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #d0eaff, #f0faff);
             margin: 0;
-            padding: 0;
         }
 
         .container {
+            background: linear-gradient(to right, #d0eaff, #f0faff);
             height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: space-around;
             align-items: center;
         }
 
         .phone {
-            width: 350px;
-            height: 700px;
+            width: 340px;
+            height: 680px;
             position: relative;
         }
 
         .screen {
             position: absolute;
             top: 60px;
-            left: 35px;
-            width: 250px;
-            height: 535px;
-            background-color: #fff;
-            /* White background for the phone screen */
+            left: 30px;
+            width: 260px;
+            height: 540px;
+            background-color: #ffffff;
             border-radius: 25px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 3px solid #000;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 4px solid #007acc;
-            /* Blue border to match theme */
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
         }
 
         img {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        h2 {
-            font-size: 22px;
+        h2,
+        h1 {
             margin: 10px 0;
-            color: #333;
-            /* Dark gray text color */
         }
 
         button {
-            margin-top: 20px;
-            padding: 12px 24px;
+            margin: 8px;
+            padding: 10px 18px;
+            font-size: 14px;
             border: none;
             border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
             color: white;
+            cursor: pointer;
         }
 
         .otp-btn {
             background-color: #007acc;
-            /* Blue button color */
         }
 
-        .wake-call-btn {
-            background-color: #007acc;
-            /* Blue button color */
+        .call-btn {
+            background-color: #009688;
         }
 
-        .call-ended {
-            background-color: #e53935 !important;
-            /* Red color when call is ended */
-        }
-
-        .endcall {
+        .end-btn {
             background-color: #e53935;
-            /* Red color for the end call button */
         }
 
-        #user h1,
-        #scammer h1 {
-            color: #007acc;
-            /* Blue for headings */
+        #user h1 {
             position: absolute;
-            left: 75px;
+            left: 125px;
+        }
+
+        #scammer h1 {
+            position: absolute;
+            left: 100px;
         }
 
         .popup {
             display: none;
-            margin-top: 30px;
+            margin-top: 20px;
             background-color: #fff;
-            border: 2px solid #007acc;
-            /* Blue border for popups */
+            border: 2px solid #000;
             padding: 15px;
             border-radius: 10px;
             text-align: center;
         }
 
-        a button {
-            background-color: #007acc;
-            /* Blue button for links */
+        #infoOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
 
-        .previous {
-            position: absolute;
-            left: 20px;
-            left: 20px;
-        }
-
-        .next {
-            position: absolute;
-            top: 700px;
-        }
-
-        .information {
-            width: 300px;
-            min-height: 200px;
-            background-color: #fff;
-            border: 3px solid #007acc;
-            /* Blue border for the info box */
-            border-radius: 15px;
-            padding: 20px;
-            font-size: 18px;
+        .infoPopup {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
-            line-height: 1.6;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .highlight-success {
+            color: #007acc;
+            font-weight: bold;
+        }
+
+        .info-box {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e0f7fa;
+            border: 2px solid #007acc;
+            padding: 10px;
+            border-radius: 10px;
+            width: 60%;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar {
+            width: 80%;
+            background: #ddd;
+            border-radius: 20px;
+            margin-top: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #007acc;
+            width: 0;
+            transition: width 0.5s ease-in-out;
+        }
+        .previous,.next{
+            background-color: #007acc;
+            margin: 8px;
+            padding: 10px 18px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            display: inline-block;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .next{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
         }
     </style>
 </head>
 
 <body>
-    <a href="intro.html" class="previous">
-        <button>
-            Previous
-        </button>
-    </a>
+    <div class="previous">
+        <a href="intro.html">Previous</a>
+    </div>
     <div class="container">
 
-        <!-- User Phone -->
-        <div class="phone" id="user">
-            <h1>USER / VICTIM</h1>
-            <div class="screen">
-                <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg"
-                    alt="scammer" />
-                <h2>Unknown</h2>
-                <button class="otp-btn" id="giveOtp">Give OTP</button>
-                <button class="wake-call-btn" id="wakeCall">Wake Up Call</button>
-                <button class="endcall" id="endCall" style="display: none">
-                    End Call
-                </button>
+        <div class="info-box">
+            📴 No activity. Call ended.
+            <div class="progress-bar">
+                <div class="progress"></div>
             </div>
         </div>
-        <div class="information">
 
-        </div>
-        <!-- Scammer Phone -->
-        <div class="phone" id="scammer">
-            <h1>SCAMMER</h1>
-            <div class="screen">
-                <img src="resources/user.jpg" alt="user" />
-                <h2>Victim</h2>
-                <button class="otp-btn" id="requestOtp">Request OTP</button>
-                <button class="wake-call-btn" id="callToggle">Call</button>
-                <div class="popup" id="otpPopup">OTP Received!</div>
-                <div class="popup" id="moneyPopup">
-                    ₹50,000 Transferred Successfully
+        <div class="container">
+            <div class="phone" id="user">
+                <h1>USER</h1>
+                <div class="screen">
+                    <img
+                        src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-hacker-wearing-hoodie-and-using-laptop-computer-freak-hacking-malware-phishing-png-image_5430152.jpg">
+                    <h2>Unknown Caller</h2>
+                    <button class="call-btn" id="wakeCall" style="display:none;">Wake Up Call</button>
+                    <button class="otp-btn" id="giveOtp" style="display:none;">Give OTP</button>
+                    <button class="end-btn" id="endCall" style="display:none;">End Call</button>
+                    <div class="popup" id="userVerification"></div>
+                </div>
+            </div>
+
+            <div class="phone" id="scammer">
+                <h1>SCAMMER</h1>
+                <div class="screen">
+                    <img src="resources/user.jpg" />
+                    <h2>Victim</h2>
+                    <button class="call-btn" id="callToggle">Call</button>
+                    <button class="otp-btn" id="requestOtp" style="display:none;">Request OTP</button>
+                    <div class="popup" id="otpPopup"></div>
+                    <div class="popup" id="moneyPopup">₹50,000 Transferred Successfully 💸</div>
+                </div>
+            </div>
+
+            <div id="infoOverlay">
+                <div class="infoPopup">
+                    <h3>🔐 DIGITAL DEFENSE</h3>
+                    <p><strong>Access Denied Without User Consent</strong></p>
+                    <hr>
+                    <p>This simulation spreads awareness on how scammers manipulate OTP-based security. Protect your
+                        digital self. NEVER share OTPs.</p>
+                    <p class="highlight-success">Stay Alert. Stay Secure. 🛡</p>
+                    <button class="call-btn" id="closeInfo">Enter Simulation</button>
                 </div>
             </div>
         </div>
     </div>
-    <a href="second-part.html" class="next" style="position: absolute; left: 1550px; top: 800px;">
-        <button>
-            View Solution
-        </button>
-    </a>
+    <div class="next">
+        <a href="intro.html">VIew Solution</a>
+    </div>
     <script>
         $(document).ready(function () {
             let callActive = false;
+            let otpGiven = false;
+            const soundCall = new Audio("https://www.fesliyanstudios.com/play-mp3/4386");
+            const soundAlert = new Audio("https://www.fesliyanstudios.com/play-mp3/6963");
+            const soundTransfer = new Audio("https://www.fesliyanstudios.com/play-mp3/6710");
+            const scammerVoice = new Audio("resources/scammer call.wav");
 
-            // Initially hide everything
-            $("#wakeCall").hide();
-            $("#giveOtp").hide();
-            $("#requestOtp").hide();
-            $("#endCall").hide();
-            $(".information").html("📞 No activity yet.");
+            function updateInfo(msg, emoji = "") {
+                $(".info-box").html(`${emoji} ${msg}<div class='progress-bar'><div class='progress'></div></div>`);
+            }
 
-            // STEP 1: Scammer clicks "Call"
+            function animateProgress(percent) {
+                $('.progress').css('width', percent + '%');
+            }
+
+            function resetAll() {
+                callActive = false;
+                otpGiven = false;
+                $("#callToggle").text("Call").removeClass("end-btn");
+                $("#wakeCall, #giveOtp, #requestOtp, #endCall").hide();
+                $("#otpPopup, #moneyPopup").hide();
+                $("#userVerification").hide().empty();
+                updateInfo("\ud83d\udcf4 No activity. Call ended.");
+                animateProgress(0);
+                soundCall.pause(); soundCall.currentTime = 0;
+                scammerVoice.pause(); scammerVoice.currentTime = 0;
+            }
+
+            $("#infoOverlay").fadeIn();
+            $("#closeInfo").click(() => {
+                $("#infoOverlay").fadeOut();
+                updateInfo("\ud83d\udcf2 No activity yet.");
+            });
+
             $("#callToggle").click(function () {
                 if (!callActive) {
                     callActive = true;
-
-                    // Update buttons
-                    $("#callToggle").text("Call Ended").addClass("call-ended");
-                    $("#wakeCall").show().text("Wake Up Call").removeClass("call-ended");
-
-                    // Update info section
-                    $(".information").html(
-                        `<b>📞 Calling...</b><br>Scammer is trying to call the victim.`
-                    );
+                    $(this).text("End Call").addClass("end-btn");
+                    $("#wakeCall").show();
+                    updateInfo("\ud83d\udcf2 Scammer places a call to the victim...");
+                    animateProgress(20);
+                    soundCall.play();
                 } else {
                     resetAll();
                 }
             });
 
-            // STEP 2: User clicks "Wake Up Call"
             $("#wakeCall").click(function () {
-                $("#wakeCall").hide();
-                $("#endCall").show(); // Show "End Call" button
-                $("#requestOtp").show(); // Scammer can now request OTP
-
-                $(".information").html(
-                    `<b>✅ Call Picked Up</b><br>Victim has picked up the call.`
-                );
+                $(this).hide();
+                $("#endCall").show();
+                $("#requestOtp").show();
+                updateInfo("\u2705 Victim answers and engages with the caller.");
+                animateProgress(40);
+                soundCall.pause();
+                scammerVoice.play();
             });
 
-            // STEP 3: Scammer clicks "Request OTP"
             $("#requestOtp").click(function () {
-                $("#requestOtp").hide();
                 $("#giveOtp").show();
-                alert("Scammer requests OTP.");
-
-                $(".information").html(
-                    `<b>⚠️ OTP Request</b><br>Scammer is trying to get the OTP by force, threat, or blackmail.`
-                );
+                updateInfo("\u26a0 Scammer uses threats to manipulate the victim...");
+                animateProgress(60);
+                soundAlert.play();
             });
 
-            // STEP 4: User gives OTP
             $("#giveOtp").click(function () {
-                $("#otpPopup").fadeIn(300).delay(2000).fadeOut(500);
-                $("#moneyPopup").delay(2300).fadeIn(400).delay(2000).fadeOut(500);
-
-                $(".information").html(
-                    `<b>🚨 Fraud in Progress</b><br>Scammer has received the OTP and is transferring money.`
-                );
+                if (otpGiven) return;
+                otpGiven = true;
+                let otp = 223311;
+                let countdown = 5;
+                const otpPopup = $("#otpPopup");
+                const interval = setInterval(() => {
+                    otpPopup.html(`OTP Received: <strong>${otp}</strong> <br><small>Auto-verify in ${countdown--}s</small>`).fadeIn();
+                    if (countdown < 0) {
+                        clearInterval(interval);
+                        otpPopup.fadeOut();
+                        $("#moneyPopup").fadeIn().delay(2000).fadeOut();
+                        updateInfo("\ud83d\udcb8 Victim gave OTP. Money transferred successfully.");
+                        animateProgress(100);
+                        soundTransfer.play();
+                    }
+                }, 1000);
             });
 
-            // STEP 5: User ends call
-            $("#endCall").click(function () {
-                resetAll();
-            });
-
-            // 🔁 RESET FUNCTION
-            function resetAll() {
-                callActive = false;
-
-                // Reset scammer side
-                $("#callToggle").text("Call").removeClass("call-ended");
-                $("#requestOtp").hide();
-
-                // Reset user side
-                $("#wakeCall").hide().removeClass("call-ended").text("Wake Up Call");
-                $("#giveOtp").hide();
-                $("#endCall").hide();
-
-                $(".information").html("📴 No activity. Call has ended.");
-            }
+            $("#endCall").click(() => resetAll());
         });
     </script>
-
 </body>
 
 </html>
