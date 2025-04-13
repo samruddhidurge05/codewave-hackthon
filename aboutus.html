@@ -11,12 +11,12 @@
             color: white;
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            padding: 40px;
+            padding: 0;
         }
 
         nav {
             background-color: aquamarine;
-            padding: 20px;
+            padding: 50px;
             text-align: center;
         }
 
@@ -25,7 +25,12 @@
             font-weight: bold;
             color: #161718;
             font-size: 22px;
-            margin: 0 20px;
+            margin: 0 25px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #005f5f;
         }
 
         .card {
@@ -34,33 +39,90 @@
             border-radius: 12px;
             border-left: 6px solid aquamarine;
             max-width: 900px;
-            margin: auto;
+            margin: 40px auto;
         }
 
         .card h2 {
             color: aquamarine;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .github-links {
+            background-color: #1e2f45;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 6px solid aquamarine;
+            max-width: 900px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .github-links h2 {
+            color: aquamarine;
+            margin-bottom: 20px;
+        }
+
+        .link-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .link-list a {
+            display: inline-block;
+            background-color: #0f1a2c;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid aquamarine;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .link-list a:hover {
+            background-color: aquamarine;
+            color: #0f1a2c;
         }
     </style>
 </head>
 
 <body>
     <nav>
-        <a href="web.html">HOME</a>
-        <a href="project.html">ABOUT PROJECT</a>
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About us</a>
+        <a href="aboutproject.html">About Project</a>
     </nav>
 
     <div class="card">
-        <h2>ABOUT US</h2>
+        <h2>About Us</h2>
         <p>
-            We are a group of cybersecurity students and enthusiasts focused on bridging the gap between awareness and
-            action. Our mission is to simplify digital safety through engaging simulations and education tools.
+            We are a passionate group of cybersecurity students and enthusiasts dedicated to making the digital world a safer place. Our goal is to bridge the gap between awareness and action by creating intuitive and engaging tools that promote cybersecurity education.
         </p>
         <p>
-            With experience in ethical hacking, web development, and digital psychology, our team is passionate about
-            empowering people to take control of their digital lives. We believe that learning cybersecurity doesn't
-            have to be boring — it can be fun, visual, and interactive.
+            Our team brings together diverse skills in ethical hacking, web development, and digital psychology to craft interactive learning experiences. We believe that understanding cybersecurity should be accessible, fun, and practical — not just theoretical or overwhelming.
         </p>
+        <p>
+            Whether you're a beginner curious about online safety or a tech-savvy individual wanting to sharpen your skills, our platform is designed to support your journey. We are committed to innovation, continuous learning, and creating a community that empowers people to take control of their digital lives.
+        </p>
+    </div>
+
+    <div class="github-links">
+        <h2>GitHub Profiles</h2>
+        <div class="link-list">
+            <a href="https://github.com/Ajinkya-Furange-Patil" target="_blank">Ajinkya Furange</a>
+            <a href="https://github.com/swarajmahadik-431" target="_blank">Swaraj Mahadik</a>
+            <a href="https://github.com/samruddhidurge05" target="_blank">Samruddhi Durge</a>
+            <a href="https://github.com/Avikapawar" target="_blank">Avika Pawar</a>
+        </div>
     </div>
 </body>
 
 </html>
+

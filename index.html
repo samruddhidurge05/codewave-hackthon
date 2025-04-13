@@ -22,21 +22,22 @@
             padding: 25px 0;
             display: flex;
             justify-content: center;
-            gap: 50px;
-            font-size: 28px;
+            gap: 60px;
+            font-size: 26px;
         }
 
         nav.title a {
             color: #161718;
             text-decoration: none;
             font-weight: bold;
-            padding: 12px 25px;
-            transition: background-color 0.3s;
+            padding: 14px 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         nav.title a:hover {
-            background-color: #c1f0e4;
-            border-radius: 5px;
+            background-color: #b8f1df;
+            transform: scale(1.05);
         }
 
         .intro-section {
@@ -45,11 +46,12 @@
             align-items: center;
             padding: 60px 80px;
             gap: 50px;
+            flex-wrap: wrap;
         }
 
         .intro-text {
             flex: 1;
-            font-size: 22px;
+            font-size: 20px;
             line-height: 1.8;
             background-color: #1e2f45;
             padding: 40px;
@@ -66,11 +68,12 @@
 
         .intro-image {
             flex: 1;
+            text-align: center;
         }
 
         .intro-image img {
             width: 100%;
-            max-width: 600px;
+            max-width: 550px;
             border-radius: 12px;
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
         }
@@ -114,14 +117,11 @@
         .square-card.demo,
         .square-card.bank,
         .square-card.sim {
-            background-size: contain;
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
-        .square-card.sim {
-            background-size: cover ;
 
-        }
         .square-card.demo {
             background-image: url('demo.png');
         }
@@ -218,10 +218,15 @@
     <div class="intro-section">
         <div class="intro-text">
             <h2>INTRODUCTION</h2>
-            <p>In today's digital era, cyberattacks are no longer limited to hacking systems — they're targeting humans...</p>
+            <p>
+                In today's digital age, cyberattacks aren't just targeting machines — they're targeting people. From phishing scams to identity theft, individuals are becoming the front line of defense. Our goal is to turn awareness into action by creating immersive experiences that teach users how to spot, avoid, and respond to digital threats.
+            </p>
+            <p>
+                Whether you're a student, a working professional, or simply someone who uses the internet every day, understanding cybersecurity has never been more important. We're here to make that journey engaging, hands-on, and accessible.
+            </p>
         </div>
         <div class="intro-image">
-            <img src="home.png" alt="Cyber Awareness" />
+            <img src="home.png" alt="Cybersecurity Awareness Graphic" />
         </div>
     </div>
 
